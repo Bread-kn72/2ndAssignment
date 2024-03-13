@@ -16,7 +16,7 @@ class BaseballGame {
             }
             // 숫자가 아니거나 중복된 숫자가 있는경우 에러가 나오는 프로퍼티, 조건 추가로 중복된 숫자를 확인하는 함수 추가
             guard let userNumber = Int(userInput), isValidNumber(userNumber) else {
-                print("잘못된 입력입니다. 숫자가 아니거나, 0을 포함하거나 중복된 숫자가 있습니다.")
+                print("잘못된 입력입니다. 숫자가 아니거나, 맨 앞자리가 0을 포함하거나 중복된 숫자가 있습니다.")
                 continue
             }
             // 스트라이크와 볼 개수를 프린트하는 상수, 계산하는 함수를 넣어 두가지 값에 strikes, balls 두 값을 반환하도록 설정
@@ -31,13 +31,17 @@ class BaseballGame {
         }
     }
     // 정답을 만드는 함수, 빈 변수를 하나 만든 뒤 1...9까지 임의의 값을 3번 반복해서 만들어냄 두번째 반복부터는 10이 곱해짐
+    // 정답이 되는 숫자를 0에서 9까지, 단 첫번째 수는 0이 될 수 없음 if문으로 조건 추가
     func makeAnswer() -> Int {
         var result = 0
-        for _ in 0..<3 {
-            result = result * 10 + Int.random(in: 1...9)
-            // 0 * 10 + 8 = 8
-            // 8 * 10 + 9 = 89
-            // 89 * 10 + 1 = 891
+        for i in 0..<3 {
+            var digit = 0
+            if i == 0 {
+                digit = digit * 10 + Int.random(in: 1...9)
+            } else {
+                digit = digit * 10 + Int.random(in: 0...9)
+            }
+            result = result * 10 + digit
         }
         return result
     }
