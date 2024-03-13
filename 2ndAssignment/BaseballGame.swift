@@ -3,6 +3,35 @@ import Foundation
 // BaseballGame.swift 파일 생성
 // BaseballGame 클래스 생성, 게임을 시작하는 함수 생성
 class BaseballGame {
+    func mainStart() {
+        var isRunning : Bool = true
+        while isRunning {
+            // 유저에게 입력값을 받음
+            print("환영합니다! 원하시는 번호를 입력해주세요 \n",
+            "1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기 \n")
+            guard let userFirstInput = readLine(), userFirstInput.count == 1 else {
+                print("올바르지 않은 입력값입니다. 한자리 숫자만 입력 해 주세요")
+                continue
+            }
+            // 숫자가 아닌걸 입력 시
+            guard let userFistNumber = Int(userFirstInput) else {
+                print("잘못된 입력입니다. 숫자가 아닙니다.")
+                continue
+            }
+            // switch구문으로 입력값에 따라 처리
+            switch userFistNumber {
+            case 1 :
+                start()
+            case 3 :
+                print("< 숫자 야구 게임을 종료합니다 >")
+                isRunning = false
+            default:
+                break
+            }
+        }
+    }
+    
+    
     func start() {
         let answer = makeAnswer() // 정답을 만드는 함수
         print("<게임을 시작합니다>")
@@ -37,9 +66,9 @@ class BaseballGame {
         for i in 0..<3 {
             var digit = 0
             if i == 0 {
-                digit = digit * 10 + Int.random(in: 1...9)
+                digit = Int.random(in: 1...9)
             } else {
-                digit = digit * 10 + Int.random(in: 0...9)
+                digit = Int.random(in: 0...9)
             }
             result = result * 10 + digit
         }
