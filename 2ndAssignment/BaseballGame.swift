@@ -18,6 +18,11 @@ class BaseballGame {
                 print("잘못된 입력입니다. 숫자가 아닙니다.")
                 continue
             }
+            guard userFistNumber < 4 else {
+                print("올바르지 않은 입력값입니다. 3가지 선택지 중 하나만 입력 해 주세요")
+                continue
+            }
+            
             // switch구문으로 입력값에 따라 처리
             switch userFistNumber {
             case 1 :
