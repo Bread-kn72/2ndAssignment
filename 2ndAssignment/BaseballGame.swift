@@ -8,7 +8,7 @@ class BaseballGame {
         while isRunning {
             // 유저에게 입력값을 받음
             print("환영합니다! 원하시는 번호를 입력해주세요 \n",
-            "1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기 \n")
+                  "1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기 \n")
             guard let userFirstInput = readLine(), userFirstInput.count == 1 else {
                 print("올바르지 않은 입력값입니다. 한자리 숫자만 입력 해 주세요")
                 continue
@@ -103,3 +103,44 @@ class BaseballGame {
         return (strikes, balls)
     }
 }
+    
+    
+    
+class RecordManager: BaseballGame {
+    // 게임 기록 창을 여는 함수
+    func showRecords() {
+        print("< 게임 기록 보기 >")
+        // \(gameTry)번째 게임 : 시도 횟수 - \(compareTry)
+        print("다시 돌아가시려면 1을 눌러주세요")
+        while true {
+            guard let recordInput = readLine(), recordInput.count == 1 else {
+                print("한자리 숫자만 가능합니다.")
+                continue
+            }
+            guard let recordNumber = Int(recordInput) else {
+                print("잘못된 입력입니다. 숫자가 아니거나, 맨 앞자리가 0을 포함하거나 중복된 숫자가 있습니다.")
+                continue
+            }
+            switch recordNumber {
+            case 1 :
+                mainStart()
+                break
+            default:
+                break
+            }
+        }
+    }
+    // 비교 시도 체크 횟수
+    func add(_ trialCount: Int) -> Int {
+        var addResult: Int = 0
+        addResult += trialCount
+        return addResult
+    }
+    
+    func Try(_ comePareTry: Int) -> Int {
+        var tryAddResult: Int = 0
+        tryAddResult += comePareTry
+        return tryAddResult
+    }
+}
+
