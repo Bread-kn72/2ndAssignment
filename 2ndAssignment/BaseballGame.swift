@@ -4,6 +4,7 @@ import Foundation
 // BaseballGame 클래스 생성, 게임을 시작하는 함수 생성
 class BaseballGame {
     func mainStart() {
+        var tryCountPerGame: [Int] = []
         var isRunning : Bool = true
         while isRunning {
             // 유저에게 입력값을 받음
@@ -26,7 +27,10 @@ class BaseballGame {
             // switch구문으로 입력값에 따라 처리
             switch userFistNumber {
             case 1 :
-                start()
+                let tryCount = start()
+                tryCountPerGame.append(tryCount)
+            case 2 :
+                showRecords(tryCountPerGame)
             case 3 :
                 print("< 숫자 야구 게임을 종료합니다 >")
                 isRunning = false
@@ -37,7 +41,9 @@ class BaseballGame {
     }
     
     
-    func start() {
+    func start() -> Int {
+        var tryCount = 0
+        
         let answer = makeAnswer() // 정답을 만드는 함수
         print("<게임을 시작합니다>")
         // break가 나오기 전까진 무한 반복하는 코드
@@ -55,6 +61,7 @@ class BaseballGame {
             }
             // 스트라이크와 볼 개수를 프린트하는 상수, 계산하는 함수를 넣어 두가지 값에 strikes, balls 두 값을 반환하도록 설정
             let (strikes, balls) = compare(answer, userNumber)
+            tryCount += 1
             print("\(strikes)스트라이크, \(balls)볼")
             
             // strikes가 3개라면 정답을 프린트 + 브레이크로 while문 마무리
@@ -63,18 +70,28 @@ class BaseballGame {
                 break
             }
         }
+        return tryCount
     }
     // 정답을 만드는 함수, 빈 변수를 하나 만든 뒤 1...9까지 임의의 값을 3번 반복해서 만들어냄 두번째 반복부터는 10이 곱해짐
-    // 정답이 되는 숫자를 0에서 9까지, 단 첫번째 수는 0이 될 수 없음 if문으로 조건 추가
+    // 정답이 되는 숫자를 0에서 9까지, 단 첫번째 수는 0이 될 수 없음 if문으로 조건 추가 - 오류: 중복되는 수 발견으로 코드 수정
+    
+    //수정코드 : 빈 변수 , 셋으로 된 빈 변수 생성
     func makeAnswer() -> Int {
         var result = 0
-        for i in 0..<3 {
-            var digit = 0
-            if i == 0 {
-                digit = Int.random(in: 1...9)
-            } else {
-                digit = Int.random(in: 0...9)
-            }
+        var digits = Set<Int>()
+        
+        // 첫번째 수가 0이 될 수 없음
+        let firstDigit = Int.random(in: 1...9)
+        digits.insert(firstDigit)
+        
+        //digits의 길이가 3 미만이라면 0~9까지 수를 digits셋트에 추가
+        while digits.count < 3 {
+            let digit = Int.random(in: 0...9)
+            digits.insert(digit)
+        }
+        
+        // 반복문으로 만들어진 수를 셋트 만큼 반복
+        for digit in digits {
             result = result * 10 + digit
         }
         return result
@@ -102,16 +119,14 @@ class BaseballGame {
         }
         return (strikes, balls)
     }
-}
     
-    
-//LV5 구현중 : 미완성
-class RecordManager: BaseballGame {
-    // 게임 기록 창을 여는 함수
-    func showRecords() {
+    func showRecords(_ tryCountPerGame: [Int]) {
         print("< 게임 기록 보기 >")
-        // \(gameTry)번째 게임 : 시도 횟수 - \(compareTry)
         print("다시 돌아가시려면 1을 눌러주세요")
+        for (index, tryCount) in tryCountPerGame.enumerated() {
+          print("\(index+1)번째 게임 : 시도 횟수 - \(tryCount)")
+        }
+        print()
         while true {
             guard let recordInput = readLine(), recordInput.count == 1 else {
                 print("한자리 숫자만 가능합니다.")
@@ -131,29 +146,5 @@ class RecordManager: BaseballGame {
             }
         }
     }
-    
-    
-
-//    // 비교 시도 체크 횟수
-//    func add(_ trialCount: Int) -> Int {
-//        var addResult: Int = 0
-//        addResult += trialCount
-//        return addResult
-//    }
-//    
-//    // 계산 시도 체크 횟수
-//    func Try(_ comepareTry: Int) -> Int {
-//        var tryAddResult: Int = 0
-//        tryAddResult += comepareTry
-//        return tryAddResult
-//    }
-//    
-//    // 게임 횟수 표시 함수
-//    func printGameRecords(gameCount: Int) {
-//        for i in 1...gameCount {
-//            var compareTry = // 시도 횟수를 받아옴
-//            print("\(i)번째 게임 : 시도횟수 - \(compareTry)")
-//        }
-//    }
 }
 
