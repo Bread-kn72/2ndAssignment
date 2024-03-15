@@ -105,7 +105,7 @@ class BaseballGame {
 }
     
     
-    
+//LV5 구현중 : 미완성
 class RecordManager: BaseballGame {
     // 게임 기록 창을 여는 함수
     func showRecords() {
@@ -121,6 +121,7 @@ class RecordManager: BaseballGame {
                 print("잘못된 입력입니다. 숫자가 아니거나, 맨 앞자리가 0을 포함하거나 중복된 숫자가 있습니다.")
                 continue
             }
+            
             switch recordNumber {
             case 1 :
                 mainStart()
@@ -130,17 +131,29 @@ class RecordManager: BaseballGame {
             }
         }
     }
-    // 비교 시도 체크 횟수
-    func add(_ trialCount: Int) -> Int {
-        var addResult: Int = 0
-        addResult += trialCount
-        return addResult
-    }
     
-    func Try(_ comePareTry: Int) -> Int {
-        var tryAddResult: Int = 0
-        tryAddResult += comePareTry
-        return tryAddResult
-    }
+    
+
+//    // 비교 시도 체크 횟수
+//    func add(_ trialCount: Int) -> Int {
+//        var addResult: Int = 0
+//        addResult += trialCount
+//        return addResult
+//    }
+//    
+//    // 계산 시도 체크 횟수
+//    func Try(_ comepareTry: Int) -> Int {
+//        var tryAddResult: Int = 0
+//        tryAddResult += comepareTry
+//        return tryAddResult
+//    }
+//    
+//    // 게임 횟수 표시 함수
+//    func printGameRecords(gameCount: Int) {
+//        for i in 1...gameCount {
+//            var compareTry = // 시도 횟수를 받아옴
+//            print("\(i)번째 게임 : 시도횟수 - \(compareTry)")
+//        }
+//    }
 }
 
