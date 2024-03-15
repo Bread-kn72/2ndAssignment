@@ -5,8 +5,7 @@ import Foundation
 class BaseballGame {
     func mainStart() {
         var tryCountPerGame: [Int] = []
-        var isRunning : Bool = true
-        while isRunning {
+        while true {
             // 유저에게 입력값을 받음
             print("환영합니다! 원하시는 번호를 입력해주세요 \n",
                   "1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기 \n")
@@ -33,7 +32,7 @@ class BaseballGame {
                 showRecords(tryCountPerGame)
             case 3 :
                 print("< 숫자 야구 게임을 종료합니다 >")
-                isRunning = false
+                exit(0)
             default:
                 break
             }
